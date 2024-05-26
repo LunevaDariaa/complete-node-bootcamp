@@ -15,20 +15,23 @@ server.on("request", (req, res) => {
 
   //Solution 2: Streams
   const readble = fs.createReadStream("test-file.txt");
-  readble.on("data", (chunk) => {
-    res.write(chunk);
-  });
+  // readble.on("data", (chunk) => {
+  //   res.write(chunk);
+  // });
 
-  readble.on("end", () => {
-    res.end();
-  });
-  readble.on("error", (err) => {
-    console.log(err);
-    res.statusCode = 500;
-    res.end("File not found");
-  });
+  // readble.on("end", () => {
+  //   res.end();
+  // });
+  // readble.on("error", (err) => {
+  //   console.log(err);
+  //   res.statusCode = 500;
+  //   res.end("File not found");
+  // });
+
+  //Solution 3
+  const readable = fs.createReadStream("text-file.txt");
+  readable.pipe(res);
 });
-
-server.listen(8000, "127.0.0.1", () => {
+isten(8000, "127.0.0.1", () => {
   console.log("Listening");
 });
